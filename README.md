@@ -12,6 +12,12 @@ Tybee is an island off the coast of Georgia. If you go there, make sure you hit 
 
 Still working on this...
 
+## Design
+
+Tybee uses a simple idea. Given an asset's history, lets figure out a modifier on the current average price X such that we will buy when the ask price reaches `Cur * X`, then sell when the bid price reaches `Cur * Y` (`Y > X`) or `Cur * Z` (`Z < X`) (a stoploss or floor).
+
+The optimization objective function will simulate this trading behavior with a given set of inputs (X, Y, Z) using historical asset price data. The optimization function is up for discussion, but is currently slated to be [SPSA](http://jhuapl.com/SPSA) ([implementation](https://github.com/yanatan16/haskell-spsa)).
+
 ### Getting Started
 
 You can install via `cabal` (or `cabal-dev`)
@@ -93,12 +99,6 @@ dist/build/benchmarks/benchmarks
 ```
 
 Just like with tests, there's a `--help` option to explore.
-
-## Design
-
-Tybee uses a simple idea. Given an asset's history, lets figure out a modifier on the current average price X such that we will buy when the ask price reaches `Cur * X`, then sell when the bid price reaches `Cur * Y` (`Y > X`) or `Cur * Z` (`Z < X`) (a stoploss or floor).
-
-The optimization objective function will simulate this trading behavior with a given set of inputs (X, Y, Z) using historical asset price data. The optimization function is up for discussion, but is currently slated to be [SPSA](http://jhuapl.com/SPSA) ([implementation](https://github.com/yanatan16/haskell-spsa)).
 
 ## License
 
