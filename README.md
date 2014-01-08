@@ -4,6 +4,10 @@ Tybee is an asset trading library which uses stochastic nonlinear optimization t
 
 _Status_: infancy
 
+#### Why is it called Tybee?
+
+Tybee is an island off the coast of Georgia. If you go there, make sure you hit up the Crab Shack. Its awesome.
+
 ## Documentation
 
 Still working on this...
