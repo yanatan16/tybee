@@ -57,10 +57,12 @@ library
   build-depends:    base >=4 && < 5,
                     time ==1.4.*,
                     mtl ==2.1.*,
-                    hmatrix >= 0.15
+                    hmatrix >= 0.15,
+                    spsa
   default-extensions: GeneralizedNewtypeDeriving,
                       MultiParamTypeClasses,
-                      FlexibleInstances
+                      FlexibleInstances,
+                      FlexibleContexts
 
   if flag(developer)
     hs-source-dirs: tests
