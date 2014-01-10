@@ -40,20 +40,21 @@ decideTybee alloc price tybee = case ((currency alloc) > 0 && (shouldBuy price t
     (False, False) -> Hold
 
 
-instance VariableRepr (TybeeStrategy s p) p where
+instance Num p => VariableRepr (TybeeStrategy s p) p where
   toVariables strat = [fn strat | fn <- [buyMod, sellMod, stopMod]]
-  fromVariables [b,s,st] = TybeeStrategy { buyMod = b, sellMod = s, stopMod = st }
+  fromVariables [b,s,st] = TybeeStrategy { currentPrice = 0, buyMod = b, sellMod = s, stopMod = st }
 
-instance (Shares s p) => OptimizableTradingStrategy TybeeStrategy s p p where
+instance (Shares s p) => OptimizableTradingStrategy TybeeStrategy s p where
   strategyConstrain = constrainTybee
   strategyLoss hist strat = - (simulateTybee hist strat)
 
 constrainTybee :: (Shares s p) => TybeeStrategy s p -> TybeeStrategy s p
 constrainTybee (TybeeStrategy {buyMod=b,sellMod=s,stopMod=st}) = let b' = (minimax b (1/tybeeBound) tybeeBound) in
   TybeeStrategy {
+    currentPrice = 0,
     buyMod = b',
     sellMod = (minimax s b' tybeeBound),
-    stopMod = (minimax s (1/tybeeBound) b')
+    stopMod = (minimax st (1/tybeeBound) b')
     }
 
 simulateTybee :: (Shares s p) => History p -> TybeeStrategy s p -> p

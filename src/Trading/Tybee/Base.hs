@@ -97,14 +97,14 @@ class VariableRepr a e where
   fromVariables = error "Not Implemented"
 
 -- | A class for optimizable trading strategies
-class (TradingStrategy a s p, VariableRepr (a s p) e) => OptimizableTradingStrategy a s p e where
+class (TradingStrategy a s p, VariableRepr (a s p) p) => OptimizableTradingStrategy a s p where
 
   -- | Optional to implement. Defaults to identity
   strategyConstrain :: a s p -> a s p
   strategyConstrain = id
 
   -- | Required to implement
-  strategyLoss :: History p -> a s p -> e
+  strategyLoss :: History p -> a s p -> p
   strategyLoss = error "Not Implemented"
 
 
